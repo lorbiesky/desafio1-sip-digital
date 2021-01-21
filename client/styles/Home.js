@@ -149,6 +149,21 @@ export const DeleteProduct = styled.div`
     opacity: 0.3;
   }
 `;
+export const EditProduct = styled.div`
+  top: 10px;
+  right: 10px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+
+  :hover {
+    cursor: pointer;
+    opacity: 0.3;
+  }
+`;
 
 export const ConfirmButtonPopup = styled.div`
   height: 60px;
@@ -173,14 +188,14 @@ export const CardImage = styled.img`
   width: 150px;
 `;
 
-export const CardTitle = styled.text`
+export const CardTitle = styled.span`
   color: #282a36;
   font-size: 16px;
   font-weight: 500;
   text-align: center;
 `;
 
-export const CardPrice = styled.text`
+export const CardPrice = styled.span`
   color: #282a36;
   font-size: 28px;
   font-weight: bold;
@@ -207,7 +222,7 @@ export const InputContainer = styled.div`
   justify-content: center;
 `;
 
-export const TextButton = styled.text`
+export const TextButton = styled.span`
   color: #282a36;
   font-size: 16px;
   font-weight: bold;

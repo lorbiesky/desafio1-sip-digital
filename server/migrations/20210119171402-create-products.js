@@ -14,15 +14,11 @@ module.exports = {
         allowNull: false,
       },
       price: {
-        type: Sequelize.FLOAT,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       image_path: {
         type: Sequelize.STRING,
-        allowNull: false,
-      },
-      user_id: {
-        type: Sequelize.INTEGER,
         allowNull: false,
       },
       created_at: {

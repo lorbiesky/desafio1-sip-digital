@@ -16,6 +16,7 @@ dotenv.config();
 
 consign()
   .include("./config/passport.js")
+  .then("./config")
   .then("./database")
   .then("./utils")
   .then("./apis")
