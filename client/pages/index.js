@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useRouter } from "next/router";
 
 import {
   BiPlusMedical,
@@ -13,6 +14,7 @@ import { useProducts } from "../hooks/products";
 import { formatPrice } from "../utils/format";
 
 import * as S from "../styles/home";
+import { route } from "next/dist/next-server/server/router";
 
 function Home() {
   const {
@@ -33,6 +35,7 @@ function Home() {
 
   const nameCardRef = useRef();
   const priceCardRef = useRef();
+  const router = useRouter();
 
   const [imageUploaded, setImageUploaded] = useState({
     status: false,
@@ -80,8 +83,20 @@ function Home() {
     setDarken({ came: "", status: false });
   };
 
-  useEffect(() => {
-    getCards();
+  const logout = () => {
+    localStorage.removeItem("@desafio/token");
+    localStorage.removeItem("@desafio/userId");
+    router.push("/auth");
+  };
+
+  useEffect(async () => {
+    const token = await localStorage.getItem("@desafio/token");
+
+    if (!token) {
+      router.push("/auth");
+    } else {
+      getCards();
+    }
   }, []);
 
   useEffect(() => {
@@ -101,13 +116,15 @@ function Home() {
       <S.SideBarContainer>
         <S.ProfileBackground />
 
-        <BiExit
-          style={{
-            color: "#f8f8f8",
-            width: "50px",
-            height: "50px",
-          }}
-        />
+        <S.LogoutContainer onClick={logout}>
+          <BiExit
+            style={{
+              color: "#f8f8f8",
+              width: "50px",
+              height: "50px",
+            }}
+          />
+        </S.LogoutContainer>
       </S.SideBarContainer>
 
       <S.ContentBarContainer>

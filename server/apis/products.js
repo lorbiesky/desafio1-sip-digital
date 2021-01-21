@@ -15,6 +15,8 @@ module.exports = (app) => {
 
   const createCard = async (req, res) => {
     const card = req.body;
+    const { id } = req.user;
+
     try {
       existsOrError(card.name, "Nome não informado.");
       existsOrError(card.price, "Preço não informada.");
@@ -23,6 +25,7 @@ module.exports = (app) => {
       await Product.create({
         name: card.name,
         price: card.price,
+        user_id: id,
         image_path: card.image_path,
       });
 
@@ -45,8 +48,9 @@ module.exports = (app) => {
   };
 
   const getCard = async (req, res) => {
+    const { id } = req.user;
     try {
-      const products = await Product.findAll();
+      const products = await Product.findAll({ where: { user_id: id } });
       return res.status(200).send(products);
     } catch (error) {
       console.log(error);

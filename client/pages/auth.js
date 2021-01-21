@@ -1,16 +1,35 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import { useRouter } from "next/router";
+import { useAuth } from "../hooks/auth";
+
 import * as S from "../styles/auth";
 
 function Auth() {
   const [login, setLogin] = useState("");
-  const [pasword, setPassword] = useState("");
+  const [password, setPassword] = useState("");
+  const router = useRouter();
+  const { signin, setError, error, payload } = useAuth();
 
   const loginRef = useRef();
   const passwordRef = useRef();
 
-  const handleSubmit = () => {};
+  const handleSubmit = () => {
+    const data = {
+      login,
+      password,
+    };
+    signin(data);
+  };
 
-  const handleRegister = () => {};
+  const handleRegister = () => {
+    router.push("/register");
+  };
+
+  useEffect(() => {
+    if (payload) {
+      router.push("/");
+    }
+  }, [payload]);
 
   return (
     <S.Container>
@@ -48,14 +67,18 @@ function Auth() {
         </S.InputDiv>
 
         <S.AuthButtonDiv>
-          <S.SubmitButton>
-            <S.TextButton onClick={handleSubmit}>CONFIRMAR</S.TextButton>
+          <S.SubmitButton onClick={handleSubmit}>
+            <S.TextButton>CONFIRMAR</S.TextButton>
           </S.SubmitButton>
 
-          <S.RegisterButton>
-            <S.TextButton onClick={handleRegister}>REGISTRAR</S.TextButton>
+          <S.RegisterButton onClick={handleRegister}>
+            <S.TextButton>REGISTRAR</S.TextButton>
           </S.RegisterButton>
         </S.AuthButtonDiv>
+
+        <S.ErrorDiv>
+          <S.ErrorText>{error || ""}</S.ErrorText>
+        </S.ErrorDiv>
       </S.AuthContainer>
     </S.Container>
   );

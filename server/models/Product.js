@@ -7,6 +7,7 @@ class Product extends Model {
         name: DataTypes.STRING,
         price: DataTypes.STRING,
         image_path: DataTypes.STRING,
+        user_id: DataTypes.INTEGER,
       },
       { sequelize }
     );

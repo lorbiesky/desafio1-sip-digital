@@ -15,8 +15,8 @@ app.use(morgan("dev"));
 dotenv.config();
 
 consign()
-  .include("./config/passport.js")
   .then("./config")
+  .then("./middlewares")
   .then("./database")
   .then("./utils")
   .then("./apis")

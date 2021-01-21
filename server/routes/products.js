@@ -7,14 +7,20 @@ module.exports = (app) => {
         20 * 1024 * 1024 // 20Mb
       )
     ).single("file"),
+    app.middlewares.user.getUserFromHeader,
     app.apis.products.uploadImage
   );
 
   app
     .route("/products")
-    .get(app.apis.products.getCard)
-    .put(app.apis.products.updateCard)
-    .post(app.apis.products.createCard);
+    .get(app.middlewares.user.getUserFromHeader, app.apis.products.getCard)
+    .put(app.middlewares.user.getUserFromHeader, app.apis.products.updateCard)
+    .post(app.middlewares.user.getUserFromHeader, app.apis.products.createCard);
 
-  app.route("/products/:id").delete(app.apis.products.removeCard);
+  app
+    .route("/products/:id")
+    .delete(
+      app.middlewares.user.getUserFromHeader,
+      app.apis.products.removeCard
+    );
 };

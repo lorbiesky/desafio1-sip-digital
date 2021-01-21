@@ -1,18 +1,38 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import { useRouter } from "next/router";
+import { useAuth } from "../hooks/auth";
+
 import * as S from "../styles/register";
 
 function Auth() {
   const [login, setLogin] = useState("");
-  const [pasword, setPassword] = useState("");
+  const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const loginRef = useRef();
   const passwordRef = useRef();
   const confirmPasswordRef = useRef();
+  const { signup, setError, error, payload } = useAuth();
+  const router = useRouter();
 
-  const handleSubmit = () => {};
+  const handleSubmit = () => {
+    const data = {
+      login,
+      password,
+      confirmPassword,
+    };
+    signup(data);
+  };
 
-  const handleBack = () => {};
+  const handleBack = () => {
+    router.back();
+  };
+
+  useEffect(() => {
+    if (payload) {
+      router.push("/");
+    }
+  }, [payload]);
 
   return (
     <S.Container>
@@ -64,14 +84,18 @@ function Auth() {
         </S.InputDiv>
 
         <S.AuthButtonDiv>
-          <S.SubmitButton>
-            <S.TextButton onClick={handleSubmit}>CONFIRMAR</S.TextButton>
+          <S.SubmitButton onClick={handleSubmit}>
+            <S.TextButton>CONFIRMAR</S.TextButton>
           </S.SubmitButton>
 
-          <S.CalcelButton>
-            <S.TextButton onClick={handleBack}>VOLTAR</S.TextButton>
+          <S.CalcelButton onClick={handleBack}>
+            <S.TextButton>VOLTAR</S.TextButton>
           </S.CalcelButton>
         </S.AuthButtonDiv>
+
+        <S.ErrorDiv>
+          <S.ErrorText>{error || ""}</S.ErrorText>
+        </S.ErrorDiv>
       </S.AuthContainer>
     </S.Container>
   );

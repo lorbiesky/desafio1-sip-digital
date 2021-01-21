@@ -90,3 +90,18 @@ export const TextButton = styled.span`
   font-size: 14px;
   font-weight: 700;
 `;
+
+export const ErrorDiv = styled.div`
+  width: 240px;
+  height: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const ErrorText = styled.span`
+  color: #ff5555;
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+`;

@@ -67,6 +67,19 @@ export const ProductAddContainer = styled.div`
   }
 `;
 
+export const LogoutContainer = styled.div`
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  :hover {
+    cursor: pointer;
+    opacity: 0.7;
+  }
+`;
+
 export const ProductContainer = styled.div`
   width: 250px;
   height: 350px;
